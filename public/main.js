@@ -6,3 +6,6 @@
 // Enter number and press button to activate coin flip series
 
 // Guess a flip by clicking either heads or tails button
+
+const coin = document.getElementById("coin")
+coin.addEventListener("click", flipCoin)
