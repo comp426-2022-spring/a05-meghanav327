@@ -30,7 +30,7 @@ var express = require('express')
 const fs = require('fs');
 const morgan = require('morgan');
 
-const logdb = require('.src/services/database.js');
+const db = require('.src/services/database.js');
 
 const port = args.port || process.env.PORT || 5000
 
@@ -68,7 +68,7 @@ app.use((req, res, next) => {
         useragent: req.headers['user-agent']
     };
     console.log(logdata)
-    const stmt = logdb.prepare('INSERT INTO accesslog (remoteaddr, remoteuser, time, method, url, protocol, httpversion, status, referrer, useragent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
+    const stmt = db.prepare('INSERT INTO accesslog (remoteaddr, remoteuser, time, method, url, protocol, httpversion, status, referrer, useragent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)')
     const info = stmt.run(
         logdata.remoteaddr,
         logdata.remoteuser,
@@ -164,7 +164,7 @@ app.get('/app/flip/call/tails/', (req, res) => {
 
 if (args.debug) {
     app.get('/app/log/access/', (req, res) => {
-        const stmt = logdb.prepare("SELECT * FROM accesslog").all();
+        const stmt = db.prepare("SELECT * FROM accesslog").all();
         res.status(200).json(stmt);
     })
 
