@@ -30,7 +30,7 @@ var express = require('express')
 const fs = require('fs');
 const morgan = require('morgan');
 
-const db = require('.src/services/database.js');
+const db = require('./src/services/database.js');
 
 const port = args.port || process.env.PORT || 5000
 
