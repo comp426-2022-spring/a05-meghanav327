@@ -7,7 +7,7 @@ if (!fs.existsSync(datadir)) {
     fs.mkdirSync(datadir);
 }
 
-const db = new database(datadir + 'log.db')
+const db = new database(datadir + '.db')
 
 const stmt = db.prepare(`SELECT name FROM sqlite_master WHERE type='table' and name='accesslog';`)
 let row = stmt.get();
