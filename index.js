@@ -142,6 +142,12 @@ app.get('/app/flip', (req, res) => {
     res.json({ 'flip': coinFlip() })
 });
 
+app.post('/app/flip/coins/', (req, res) => {
+    const flips = coinFlips(req.body.number)
+    const count = countFlips(flips)
+    res.status(200).json({ "raw": flips, "summary": count })
+})
+
 app.get('/app/flips/:number/', (req, res) => {
     res.status(200);
     var flips = req.params.number;
@@ -151,6 +157,11 @@ app.get('/app/flips/:number/', (req, res) => {
         'summary': countFlips(results)
     })
 });
+
+app.post('/app/flip/call/', (req, res, next) => {
+    const coin = flipACoin(req.body.guess)
+    res.status(200).json(coin)
+})
 
 app.get('/app/flip/call/heads/', (req, res) => {
     res.status(200);
